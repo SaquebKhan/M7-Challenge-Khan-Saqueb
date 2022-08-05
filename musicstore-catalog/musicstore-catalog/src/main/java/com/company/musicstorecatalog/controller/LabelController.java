@@ -2,25 +2,65 @@ package com.company.musicstorecatalog.controller;
 
 import com.company.musicstorecatalog.model.Label;
 import com.company.musicstorecatalog.repository.LabelRepository;
+import com.company.musicstorecatalog.model.Label;
+import com.company.musicstorecatalog.repository.LabelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/label")
 public class LabelController {
-
     @Autowired
-    LabelRepository labelRepository;
+    private LabelRepository repo;
 
-    @GetMapping()
-    @ResponseStatus(HttpStatus.OK)
-    public List<Label> getAllLabel() {
-        return labelRepository.findAll();
+    @RequestMapping(value = "/label", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public Label createLabel(@RequestBody Label label) {
+        return repo.save(label);
     }
+
+    @RequestMapping(value = "/label", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<Label> getAllLabels(){
+        return repo.findAll();
+    }
+    @RequestMapping(value = "/label/{id}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public Label findOneLabel(@PathVariable Integer id){
+        Optional<Label> label = repo.findById(Long.valueOf(id));
+        //if the customer is there we get the customer
+        if (label.isPresent() == false) {
+            //or throw an error
+            throw new IllegalArgumentException("invalid id");
+
+        } else {
+            //customer gotten
+            return label.get();
+        }
+    }
+    @RequestMapping(value = "/label/{id}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK)
+    public Label updateLabel(@RequestBody Label label, @PathVariable Integer id){
+
+        if (label.getId() == null) {
+            label.setId(id);
+        } else if (label.getId() != id) {
+            throw new IllegalArgumentException("Ids don't match.");
+        }
+        return repo.save(label);
+
+    }
+    @RequestMapping(value = "/label/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    //passing the id in to delete
+    public void deleteOneLabel(@PathVariable Integer id) {
+        repo.deleteById(Long.valueOf(id));
+
+    }
+
 }

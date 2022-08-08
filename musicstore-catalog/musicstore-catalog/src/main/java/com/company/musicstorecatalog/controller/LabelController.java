@@ -32,7 +32,7 @@ public class LabelController {
     @RequestMapping(value = "/label/{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public Label findOneLabel(@PathVariable Integer id){
-        Optional<Label> label = repo.findById(Long.valueOf(id));
+        Optional<Label> label = repo.findById(Math.toIntExact(Long.valueOf(id)));
         //if the customer is there we get the customer
         if (label.isPresent() == false) {
             //or throw an error
@@ -59,7 +59,7 @@ public class LabelController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     //passing the id in to delete
     public void deleteOneLabel(@PathVariable Integer id) {
-        repo.deleteById(Long.valueOf(id));
+        repo.deleteById(Math.toIntExact(Long.valueOf(id)));
 
     }
 

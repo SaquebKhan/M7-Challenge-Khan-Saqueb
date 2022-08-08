@@ -46,7 +46,7 @@ public class ArtistControllerTest {
         setUpProduceServiceMock();
     }
     public void setUpProduceServiceMock(){
-        Artist orange =new Artist(111,"orangey", "orange","orangeorange");
+        Artist orange =new Artist(111,"Breaking Benjamin", "orange","orangeorange");
         Artist orangeWithoutId =new Artist("orangey", "orange","orangeorange");
         List<Artist> labelList= Arrays.asList(orange);
         doReturn(labelList).when(repo).findAll();

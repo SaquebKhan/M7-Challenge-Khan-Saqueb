@@ -49,8 +49,8 @@ public class AlbumControllerTest {
     @Autowired
     MockMvc mockMvc;
     public void setUpProduceServiceMock(){
-        Album orange =new Album(111,"orangey", 1, LocalDate.ofEpochDay(1999-10-13),1,BigDecimal.valueOf(10.99));
-        Album orangeWithoutId =new Album("orangey", 1, LocalDate.ofEpochDay(1999-10-13),1,BigDecimal.valueOf(10.99));
+        Album orange =new Album(117,"This is the one", 1, LocalDate.ofEpochDay(2009-21-25),1,BigDecimal.valueOf(99.99));
+        Album orangeWithoutId =new Album("This is the one", 1, LocalDate.ofEpochDay(2009-21-25),1,BigDecimal.valueOf(99.99));
         List<Album> albumList= Arrays.asList(orange);
         doReturn(albumList).when(repo).findAll();
         doReturn(orange).when(repo).save(orangeWithoutId);

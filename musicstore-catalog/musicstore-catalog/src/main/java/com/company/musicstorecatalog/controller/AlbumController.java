@@ -51,7 +51,7 @@ public class AlbumController {
         if (album.getId() == null) {
             album.setId(id);
         } else if (album.getId() != id) {
-            throw new IllegalArgumentException("Ids don't match.");
+            throw new IllegalArgumentException("Error, ID do not match");
         }
         return repo.save(album);
 

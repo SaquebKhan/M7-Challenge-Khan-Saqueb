@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-//taken fromCognizant 02-we-record-service-validation-error-handling
+//This is from 02-we-record-service-validation-error-handling
 @RestControllerAdvice
 public class ExceptionHandlerController {
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})

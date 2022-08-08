@@ -50,7 +50,7 @@ public class LabelController {
         if (label.getId() == null) {
             label.setId(id);
         } else if (label.getId() != id) {
-            throw new IllegalArgumentException("Ids don't match.");
+            throw new IllegalArgumentException("Error, ID do not match");
         }
         return repo.save(label);
 

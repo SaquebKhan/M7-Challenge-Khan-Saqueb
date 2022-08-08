@@ -48,7 +48,7 @@ public class ArtistController {
         if (artist.getId() == null) {
             artist.setId(id);
         } else if (artist.getId() != id) {
-            throw new IllegalArgumentException("Ids don't match.");
+            throw new IllegalArgumentException("Error, ID do not match");
         }
         return repo.save(artist);
 

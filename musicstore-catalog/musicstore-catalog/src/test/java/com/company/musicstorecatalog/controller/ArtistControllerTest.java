@@ -46,49 +46,24 @@ public class ArtistControllerTest {
         setUpProduceServiceMock();
     }
     public void setUpProduceServiceMock(){
-        Artist orange =new Artist(111,"Breaking Benjamin", "orange","orangeorange");
-        Artist orangeWithoutId =new Artist("orangey", "orange","orangeorange");
-        List<Artist> labelList= Arrays.asList(orange);
+        Artist naruto =new Artist(14,"naruto", "naruto","@naruto");
+        Artist narutoWithoutId =new Artist("naruto", "naruto","@naruto");
+        List<Artist> labelList= Arrays.asList(naruto);
         doReturn(labelList).when(repo).findAll();
-        doReturn(orange).when(repo).save(orangeWithoutId);
+        doReturn(naruto).when(repo).save(narutoWithoutId);
 
-    }
-    @Test
-    public void getAllArtistShouldReturnListAnd200()throws Exception{
-        Artist orange =new Artist(111,"orangey", "orange","orangeorange");
-        List<Artist> artistList= Arrays.asList(orange);
-        String expectedJsonValue =mapper.writeValueAsString(artistList);
-        mockMvc.perform(get("/artist"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().json(expectedJsonValue));
-
-    }
-    @Test
-    public void createArtistShouldReturnNewLabel()throws Exception{
-        Artist outputArtist=new Artist(111,"orangey", "orange","orangeorange");
-        Artist inputArtist= new Artist("orangey", "orange","orangeorange");
-        String outputArtistJson=mapper.writeValueAsString(outputArtist);
-        String inputArtistJson = mapper.writeValueAsString(inputArtist);
-
-        mockMvc.perform(post("/artist")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(inputArtistJson))
-                .andDo(print())
-                .andExpect(status().isCreated())            // Assert
-                .andExpect(content().json(outputArtistJson));  // Assert
     }
     @Test
     public void getOneArtistShouldReturn()throws Exception{
-        Artist artist=new Artist(111,"orangey", "orange","orangeorange");
+        Artist artist=new Artist(447,"Mr.Test", "MTest","@Mrtest");
         String expectedJsonValue=mapper.writeValueAsString(artist);
 
 
 
-        doReturn(Optional.of(artist)).when(repo).findById(111);
+        doReturn(Optional.of(artist)).when(repo).findById(447);
 
         ResultActions result = mockMvc.perform(
-                        get("/artist/111"))
+                        get("/artist/447"))
                 .andExpect(status().isOk())
                 .andExpect((content().json(expectedJsonValue))
                 );
@@ -97,21 +72,19 @@ public class ArtistControllerTest {
 
     @Test
     public void shouldUpdateByIdAndReturn200StatusCode() throws Exception {
-        Artist artist = new Artist( 111,"orangey", "orange","orangeorange");
-        //Artist expectedValue =new Artist("orangey", "orange","orangeorange");
+        Artist artist = new Artist( 14,"naruto", "naruto","@naruto");
         String expectedJsonValue=mapper.writeValueAsString(artist);
         mockMvc.perform(
-                        put("/artist/111")
+                        put("/artist/14")
                                 .content(expectedJsonValue)
                                 .contentType(MediaType.APPLICATION_JSON)
-
                 )
                 .andExpect(status().isOk());
 
     }
     @Test
     public void shouldDeleteByIdAndReturn200StatusCode() throws Exception {
-        Artist artist = new Artist( 1,"orangey", "orange","orangeorange");
+        Artist artist = new Artist( 1,"Last Test", "LastTest","@LastTest");
         mockMvc.perform(delete("/artist/1")).andExpect(status().isNoContent());
     }
 

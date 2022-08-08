@@ -40,7 +40,7 @@ public class ArtistService {
         if (oldArtist.isPresent()) {
             artist.setId(oldArtist.get().getId());
             return artistRepository.save(artist);
-        } else throw new RuntimeException("Aritst with that ID does not exist");
+        } else throw new RuntimeException("Artist with that ID does not exist");
     }
 
     public void deleteArtistById(long id) {

@@ -24,7 +24,7 @@ public class LabelService {
     }
 
     public Label findById(long id) {
-        Optional<Label> label = labelRepository.findById((long) id);
+        Optional<Label> label = labelRepository.findById((int) id);
 
         if (label.isPresent()) {
             return label.get();
@@ -44,6 +44,6 @@ public class LabelService {
         } else throw new RuntimeException("Label with that ID does not exist");
     }
     public void deleteLabelById(long id) {
-        labelRepository.deleteById((long)id);
+        labelRepository.deleteById((int) id);
     }
 }

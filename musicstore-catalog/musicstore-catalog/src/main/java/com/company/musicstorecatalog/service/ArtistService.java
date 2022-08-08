@@ -23,7 +23,7 @@ public class ArtistService {
     }
 
     public Artist findById(long id) {
-        Optional<Artist> artist = artistRepository.findById((long) id);
+        Optional<Artist> artist = artistRepository.findById((int) id);
 
         if (artist.isPresent()) {
             return artist.get();
@@ -44,6 +44,6 @@ public class ArtistService {
     }
 
     public void deleteArtistById(long id) {
-        artistRepository.deleteById((long) id);
+        artistRepository.deleteById((int) id);
     }
 }

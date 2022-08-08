@@ -22,7 +22,7 @@ public class AlbumService {
     }
 
     public Album findById(long id) {
-        Optional<Album> album = albumRepository.findById((long) id);
+        Optional<Album> album = albumRepository.findById((int) id);
 
         if (album.isPresent()) {
             return album.get();
@@ -43,6 +43,6 @@ public class AlbumService {
     }
 
     public void deleteAlbumById(long id) {
-        albumRepository.deleteById(id);
+        albumRepository.deleteById((int) id);
     }
 }

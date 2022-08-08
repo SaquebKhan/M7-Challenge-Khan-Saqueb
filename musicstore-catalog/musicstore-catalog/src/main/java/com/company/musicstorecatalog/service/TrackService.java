@@ -23,7 +23,7 @@ public class TrackService {
     }
 
     public Track findTrackById(long id) {
-        Optional<Track> track = trackRepository.findById((long) id);
+        Optional<Track> track = trackRepository.findById((int) id);
         if (track.isPresent()) {
             return track.get();
         } else throw new RuntimeException("Track with this ID does not exist");
@@ -42,6 +42,6 @@ public class TrackService {
     }
 
     public void deleteTrackById(long id) {
-        trackRepository.deleteById(id);
+        trackRepository.deleteById((int) id);
     }
 }

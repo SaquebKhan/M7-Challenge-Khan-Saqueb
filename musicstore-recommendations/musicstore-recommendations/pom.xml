@@ -12,7 +12,7 @@
 	<artifactId>musicstore-recommendations</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>musicstore-recommendations</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Project 2</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -33,12 +33,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13.2</version>
-			<scope>test</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>

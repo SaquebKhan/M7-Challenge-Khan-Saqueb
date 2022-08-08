@@ -1,4 +1,7 @@
 package com.company.musicstorerecommendations.repository;
 
-public interface TrackRecommendationRepository {
+import com.company.musicstorerecommendations.model.TrackRecommendation;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TrackRecommendationRepository extends JpaRepository<TrackRecommendation,Integer> {
 }

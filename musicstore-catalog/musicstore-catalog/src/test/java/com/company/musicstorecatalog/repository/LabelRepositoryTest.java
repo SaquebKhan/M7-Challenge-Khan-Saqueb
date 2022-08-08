@@ -39,21 +39,19 @@ public class LabelRepositoryTest {
 
     @Test
     public void shouldShouldInteractWithDatabaseTable() {
-//        Arrange
-//        Make a new label
-        Label label = new Label("Murder Inc", "www.MurderInc.com");
+
+        Label label = new Label("Music LLP", "www.MusicLLP.com");
         labelRepository.save(label);
-        Label expectedLabel = new Label(label.getId(), "Murder Inc", "www.MurderInc.com");
+        Label expectedLabel = new Label(label.getId(), "Music LLP", "www.MusicLLP.com");
 
         assertEquals(expectedLabel.toString(), label.toString());
 
-        // Act
         List<Label> allTheLabel = labelRepository.findAll();
 
-        // Assert
+
         assertEquals(1, allTheLabel.size());
 
-        // Act
+
         labelRepository.deleteById(label.getId());
 
         allTheLabel = labelRepository.findAll();

@@ -38,26 +38,25 @@ public class TrackRepositoryTest {
 
     @Test
     public void shouldShouldInteractWithDatabaseTable() {
-//        Arrange
-        Label label = new Label("Murder Inc", "www.MurderInc.com");
+        Label label = new Label("Music LLP", "www.MusicLLP.com");
         labelRepository.save(label);
-        Label expectedLabel = new Label(label.getId(), "Murder Inc", "www.MurderInc.com");
+        Label expectedLabel = new Label(label.getId(), "Music LLP", "www.MusicLLP.com");
 
-        Artist artist = new Artist("JayZ", "@JayZ", "@JayZ");
+        Artist artist = new Artist("naruto", "@naruto", "@naruto");
         artistRepository.save(artist);
-        Artist expectedArtist = new Artist(artist.getId(),"JayZ", "@JayZ", "@JayZ");
+        Artist expectedArtist = new Artist(artist.getId(),"naruto", "@naruto", "@naruto");
 
-        Album album = new Album("The Black Album", artist.getId(), LocalDate.of(2003, 11, 14), label.getId(), new BigDecimal("19.99"));
+        Album album = new Album("Halo 3", artist.getId(), LocalDate.of(2003, 11, 14), label.getId(), new BigDecimal("343.99"));
         albumRepository.save(album);
-        Album expectedAlbum = new Album(album.getId(), "The Black Album", artist.getId(), LocalDate.of(2003, 11, 14), label.getId(), new BigDecimal("19.99"));
+        Album expectedAlbum = new Album(album.getId(), "Halo 3", artist.getId(), LocalDate.of(2003, 11, 14), label.getId(), new BigDecimal("777.99"));
 
-//        Make a new label
-        Track track = new Track(album.getId(), "99 Problems",358);
+
+        Track track = new Track(album.getId(), "Finish the Fight",358);
         repo.save(track);
-        Track expectedTrack = new Track(track.getId(), album.getId(), "99 Problems",358);
+        Track expectedTrack = new Track(track.getId(), album.getId(), "Finish the Fight",358);
 
 
-//        Act
+
         expectedTrack.setId(track.getId());
         assertEquals(expectedTrack.toString(), track.toString());
 

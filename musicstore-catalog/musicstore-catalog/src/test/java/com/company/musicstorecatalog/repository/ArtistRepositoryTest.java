@@ -36,22 +36,20 @@ public class ArtistRepositoryTest {
 
     @Test
     public void shouldShouldInteractWithDatabaseTable() {
-//        Arrange
-//        Make a new label
-        Artist artist = new Artist("JZ", "@JZ", "@JayZ");
+        Artist artist = new Artist("Kanye", "@Kanye", "@JayZ");
         repo.save(artist);
-        Artist expectedArtist = new Artist(artist.getId(), "JZ", "@JZ", "@JayZ");
+        Artist expectedArtist = new Artist(artist.getId(), "Kanye", "@Kanye", "@JayZ");
 
-//        Act
+
         assertEquals(expectedArtist.toString(), artist.toString());
 
-        // Act
+
         List<Artist> allTheArtist = repo.findAll();
 
-        // Assert
+
         assertEquals(1, allTheArtist.size());
 
-        // Act
+
         repo.deleteById(artist.getId());
 
         allTheArtist = repo.findAll();

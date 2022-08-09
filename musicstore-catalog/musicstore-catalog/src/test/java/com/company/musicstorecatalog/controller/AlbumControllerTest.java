@@ -58,8 +58,8 @@ public class AlbumControllerTest {
     }
     @Test
     public void getAllAlbumsShouldReturnListAnd200()throws Exception{
-        Album orange =new Album(111,"orangey", 1, LocalDate.ofEpochDay(1999-10-13),1,BigDecimal.valueOf(10.99));
-        List<Album> albumList= Arrays.asList(orange);
+        Album BattleField =new Album(216,"BattleField", 1, LocalDate.ofEpochDay(2016-11-20),1,BigDecimal.valueOf(10.99));
+        List<Album> albumList= Arrays.asList(BattleField);
         String expectedJsonValue =mapper.writeValueAsString(albumList);
         doReturn(albumList).when(repo).findAll();
         mockMvc.perform(MockMvcRequestBuilders.get("/album"))
@@ -71,8 +71,8 @@ public class AlbumControllerTest {
 
     @Test
     public void createAlbumShouldReturnNewLabel()throws Exception{
-        Album outputAlbum=new Album(111,"orangey", 1,LocalDate.of(1999,10,13),1,BigDecimal.valueOf(10.99));
-        Album inputAlbum= new Album("orangey", 1, LocalDate.of(1999,10,13),1,BigDecimal.valueOf(10.99));
+        Album outputAlbum=new Album(616,"Naruto", 1,LocalDate.of(2001,11,12),1,BigDecimal.valueOf(19.99));
+        Album inputAlbum= new Album("Halo", 1, LocalDate.of(2001,10,15),1,BigDecimal.valueOf(15.99));
         String outputAlbumJson=mapper.writeValueAsString(outputAlbum);
         String inputAlbumJson = mapper.writeValueAsString(inputAlbum);
         when(repo.save(inputAlbum)).thenReturn(outputAlbum);
@@ -87,13 +87,13 @@ public class AlbumControllerTest {
     }
     @Test
     public void getOneArtistShouldReturn()throws Exception{
-        Album artist=new Album(111,"orangey", 1, LocalDate.of(1999,10,13),1,BigDecimal.valueOf(10.99));
+        Album artist=new Album(117,"Halo", 1, LocalDate.of(2001,10,3),1,BigDecimal.valueOf(20.99));
         String expectedJsonValue=mapper.writeValueAsString(artist);
 
-        doReturn(Optional.of(artist)).when(repo).findById(111);
+        doReturn(Optional.of(artist)).when(repo).findById(117);
 
         ResultActions result = mockMvc.perform(
-                        MockMvcRequestBuilders.get("/album/111"))
+                        MockMvcRequestBuilders.get("/album/117"))
                 .andExpect(status().isOk())
                 .andExpect((content().json(expectedJsonValue))
                 );
@@ -102,11 +102,10 @@ public class AlbumControllerTest {
 
     @Test
     public void shouldUpdateByIdAndReturn200StatusCode() throws Exception {
-        Album artist = new Album( 111,"orangey", 1, LocalDate.ofEpochDay(1999-10-13),1,BigDecimal.valueOf(10.99));
-        //Artist expectedValue =new Artist("orangey", "orange","orangeorange");
+        Album artist = new Album( 117,"Halo", 1, LocalDate.ofEpochDay(2001-5-1),1,BigDecimal.valueOf(15.99));
         String expectedJsonValue=mapper.writeValueAsString(artist);
         mockMvc.perform(
-                        put("/album/111")
+                        put("/album/117")
                                 .content(expectedJsonValue)
                                 .contentType(MediaType.APPLICATION_JSON)
 
@@ -116,7 +115,7 @@ public class AlbumControllerTest {
     }
     @Test
     public void shouldDeleteByIdAndReturn200StatusCode() throws Exception {
-        Album artist = new Album( 1,"orangey", 1,LocalDate.ofEpochDay(1999-10-13),1,BigDecimal.valueOf(10.99));
+        Album artist = new Album( 1,"Halo", 1,LocalDate.ofEpochDay(2001-5-1),1,BigDecimal.valueOf(15.99));
         mockMvc.perform(MockMvcRequestBuilders.delete("/album/1")).andExpect(status().isNoContent());
     }
 

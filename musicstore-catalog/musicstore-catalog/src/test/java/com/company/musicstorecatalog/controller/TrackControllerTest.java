@@ -49,23 +49,18 @@ public class TrackControllerTest {
 
     @Autowired
     MockMvc mockMvc;
-
-    //        @Before
-//    public void setUp()throws Exception{
-//        setUpProduceServiceMock();
-//    }
     public void setUpProduceServiceMock(){
-        Track orange =new Track(111,1,"orangey", 2);
-        Track orangeWithoutId =new Track(1,"orangey", 2);
-        List<Track> albumList= Arrays.asList(orange);
+        Track halo =new Track(117,1,"halo", 2);
+        Track haloWithoutId =new Track(1,"halo", 2);
+        List<Track> albumList= Arrays.asList(halo);
         doReturn(albumList).when(repo).findAll();
-        doReturn(orange).when(repo).save(orangeWithoutId);
+        doReturn(halo).when(repo).save(haloWithoutId);
 
     }
     @Test
     public void getAllTracksShouldReturnListAnd200()throws Exception{
-        Track orange =new Track(111,1,"orangey", 2);
-        List<Track> trackList= Arrays.asList(orange);
+        Track halo =new Track(117,1,"halo", 2);
+        List<Track> trackList= Arrays.asList(halo);
         String expectedJsonValue =mapper.writeValueAsString(trackList);
         doReturn(trackList).when(repo).findAll();
         mockMvc.perform(MockMvcRequestBuilders.get("/track"))
@@ -77,23 +72,18 @@ public class TrackControllerTest {
     @Test
     public void shouldReturnNewTrackOnPostRequest() throws Exception{
 
-        //Arrange
         Track inTrack = new Track();
 
         inTrack.setTitle("Ready to Die");
         inTrack.setAlbumId(1);
         inTrack.setRunTime(200);
-
-        //
         Track outTrack = new Track();
         inTrack.setId(1);
         inTrack.setTitle("Ready to Die");
         inTrack.setAlbumId(1);
         inTrack.setRunTime(200);
-
         String inputJson = mapper.writeValueAsString(inTrack);
         String outputJson = mapper.writeValueAsString(outTrack);
-        //act
         when(repo.save(inTrack)).thenReturn(outTrack);
 
         mockMvc.perform(post("/track")
@@ -106,8 +96,8 @@ public class TrackControllerTest {
 
     @Test
     public void createTrackShouldReturnNewLabel()throws Exception{
-        Track outputTrack=new Track(1,1,"orangey", 2);
-        Track inputTrack= new Track(1,"orangey", 2);
+        Track outputTrack=new Track(1,1,"halo", 2);
+        Track inputTrack= new Track(1,"halo", 2);
         String outputTrackJson=mapper.writeValueAsString(outputTrack);
         String inputTrackJson = mapper.writeValueAsString(inputTrack);
         when(repo.save(inputTrack)).thenReturn(outputTrack);
@@ -117,18 +107,18 @@ public class TrackControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
 
                 .andDo(print())
-                .andExpect(status().isCreated())            // Assert
-                .andExpect(content().json(outputTrackJson));  // Assert
+                .andExpect(status().isCreated())
+                .andExpect(content().json(outputTrackJson));
     }
     @Test
     public void getOneArtistShouldReturn()throws Exception{
-        Track artist=new Track(111,1,"orangey", 2);
+        Track artist=new Track(117,1,"halo", 2);
         String expectedJsonValue=mapper.writeValueAsString(artist);
 
-        doReturn(Optional.of(artist)).when(repo).findById(111);
+        doReturn(Optional.of(artist)).when(repo).findById(117);
 
         ResultActions result = mockMvc.perform(
-                        MockMvcRequestBuilders.get("/track/111"))
+                        MockMvcRequestBuilders.get("/track/117"))
                 .andExpect(status().isOk())
                 .andExpect((content().json(expectedJsonValue))
                 );
@@ -137,21 +127,18 @@ public class TrackControllerTest {
 
     @Test
     public void shouldUpdateByIdAndReturn200StatusCode() throws Exception {
-        Track artist = new Track( 111,1,"orangey", 2);
-        //Artist expectedValue =new Artist("orangey", "orange","orangeorange");
+        Track artist = new Track( 117,1,"halo", 2);
         String expectedJsonValue=mapper.writeValueAsString(artist);
         mockMvc.perform(
-                        put("/track/111")
+                        put("/track/117")
                                 .content(expectedJsonValue)
                                 .contentType(MediaType.APPLICATION_JSON)
-
                 )
                 .andExpect(status().isOk());
-
     }
     @Test
     public void shouldDeleteByIdAndReturn200StatusCode() throws Exception {
-        Track artist = new Track( 111,1,"orangey", 2);
+        Track artist = new Track( 117,1,"halo", 2);
         mockMvc.perform(MockMvcRequestBuilders.delete("/track/1")).andExpect(status().isNoContent());
     }
 

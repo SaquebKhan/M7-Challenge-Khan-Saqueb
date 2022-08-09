@@ -1,5 +1,8 @@
 package com.company.musicstorerecommendations.controller;
 
+import static org.junit.Assert.*;
+
+
 import com.company.musicstorerecommendations.model.AlbumRecommendation;
 import com.company.musicstorerecommendations.repository.AlbumRecommendationRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,22 +14,27 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(AlbumRecommendationController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -41,17 +49,17 @@ public class AlbumRecommendationControllerTest {
     @Autowired
     MockMvc mockMvc;
     public void setUpProduceServiceMock(){
-        AlbumRecommendation orange =new AlbumRecommendation(117,"This is the one", 1, LocalDate.ofEpochDay(2009-21-25),1, BigDecimal.valueOf(99.99));
-        AlbumRecommendation orangeWithoutId =new AlbumRecommendation("This is the one", 1, LocalDate.ofEpochDay(2009-21-25),1,BigDecimal.valueOf(99.99));
-        List<AlbumRecommendation> albumRecommendationList= Arrays.asList(orange);
+        AlbumRecommendation albumOne =new AlbumRecommendation(525,1,2,true);
+        AlbumRecommendation albumOneWithoutId =new AlbumRecommendation(1,2,true);
+        List<AlbumRecommendation> albumRecommendationList= Arrays.asList(albumOne);
         doReturn(albumRecommendationList).when(repo).findAll();
-        doReturn(orange).when(repo).save(orangeWithoutId);
+        doReturn(albumOne).when(repo).save(albumOneWithoutId);
 
     }
     @Test
     public void getAllAlbumRecommendationsShouldReturnListAnd200()throws Exception{
-        AlbumRecommendation orange =new AlbumRecommendation(111,"orangey", 1, LocalDate.ofEpochDay(1999-10-13),1,BigDecimal.valueOf(10.99));
-        List<AlbumRecommendation> albumRecommendationList= Arrays.asList(orange);
+        AlbumRecommendation BattleField =new AlbumRecommendation(1,2,true);
+        List<AlbumRecommendation> albumRecommendationList= Arrays.asList(BattleField);
         String expectedJsonValue =mapper.writeValueAsString(albumRecommendationList);
         doReturn(albumRecommendationList).when(repo).findAll();
         mockMvc.perform(MockMvcRequestBuilders.get("/albumRecommendation"))
@@ -63,8 +71,8 @@ public class AlbumRecommendationControllerTest {
 
     @Test
     public void createAlbumRecommendationShouldReturnNewLabel()throws Exception{
-        AlbumRecommendation outputAlbumRecommendation=new AlbumRecommendation(111,"orangey", 1,LocalDate.of(1999,10,13),1,BigDecimal.valueOf(10.99));
-        AlbumRecommendation inputAlbumRecommendation= new AlbumRecommendation("orangey", 1, LocalDate.of(1999,10,13),1,BigDecimal.valueOf(10.99));
+        AlbumRecommendation outputAlbumRecommendation=new AlbumRecommendation(525,1,2,true);
+        AlbumRecommendation inputAlbumRecommendation= new AlbumRecommendation(1,2,true);
         String outputAlbumRecommendationJson=mapper.writeValueAsString(outputAlbumRecommendation);
         String inputAlbumRecommendationJson = mapper.writeValueAsString(inputAlbumRecommendation);
         when(repo.save(inputAlbumRecommendation)).thenReturn(outputAlbumRecommendation);
@@ -74,18 +82,18 @@ public class AlbumRecommendationControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
 
                 .andDo(print())
-                .andExpect(status().isCreated())            // Assert
-                .andExpect(content().json(outputAlbumRecommendationJson));  // Assert
+                .andExpect(status().isCreated())
+                .andExpect(content().json(outputAlbumRecommendationJson));
     }
     @Test
-    public void getOneArtistShouldReturn()throws Exception{
-        AlbumRecommendation artist=new AlbumRecommendation(111,"orangey", 1, LocalDate.of(1999,10,13),1,BigDecimal.valueOf(10.99));
-        String expectedJsonValue=mapper.writeValueAsString(artist);
+    public void getOneAlbumShouldReturn()throws Exception{
+        AlbumRecommendation album=new AlbumRecommendation(525,1,2,true);
+        String expectedJsonValue=mapper.writeValueAsString(album);
 
-        doReturn(Optional.of(artist)).when(repo).findById(111);
+        doReturn(Optional.of(album)).when(repo).findById(525);
 
         ResultActions result = mockMvc.perform(
-                        MockMvcRequestBuilders.get("/albumRecommendation/111"))
+                        MockMvcRequestBuilders.get("/albumRecommendation/525"))
                 .andExpect(status().isOk())
                 .andExpect((content().json(expectedJsonValue))
                 );
@@ -94,11 +102,10 @@ public class AlbumRecommendationControllerTest {
 
     @Test
     public void shouldUpdateByIdAndReturn200StatusCode() throws Exception {
-        AlbumRecommendation artist = new AlbumRecommendation( 111,"orangey", 1, LocalDate.ofEpochDay(1999-10-13),1,BigDecimal.valueOf(10.99));
-        //Artist expectedValue =new Artist("orangey", "orange","orangeorange");
-        String expectedJsonValue=mapper.writeValueAsString(artist);
+        AlbumRecommendation albumRecommendation = new AlbumRecommendation(1,2,true);
+        String expectedJsonValue=mapper.writeValueAsString(albumRecommendation);
         mockMvc.perform(
-                        put("/albumRecommendation/111")
+                        put("/albumRecommendation/525")
                                 .content(expectedJsonValue)
                                 .contentType(MediaType.APPLICATION_JSON)
 
@@ -108,7 +115,7 @@ public class AlbumRecommendationControllerTest {
     }
     @Test
     public void shouldDeleteByIdAndReturn200StatusCode() throws Exception {
-        AlbumRecommendation artist = new AlbumRecommendation( 1,"orangey", 1,LocalDate.ofEpochDay(1999-10-13),1,BigDecimal.valueOf(10.99));
+        AlbumRecommendation artist = new AlbumRecommendation(525,1,2,true);
         mockMvc.perform(MockMvcRequestBuilders.delete("/albumRecommendation/1")).andExpect(status().isNoContent());
     }
 

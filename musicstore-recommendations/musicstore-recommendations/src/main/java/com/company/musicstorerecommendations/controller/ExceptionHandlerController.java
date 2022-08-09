@@ -14,20 +14,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-//taken fromCognizant 02-we-record-service-validation-error-handling
 @RestControllerAdvice
 public class ExceptionHandlerController {
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity<List<ErrorResponse>> newResponseErrors(MethodArgumentNotValidException e) {
 
-        // BindingResult holds the validation errors
         BindingResult result = e.getBindingResult();
 
-        // Validation errors are stored in FieldError objects
         List<FieldError> fieldErrors = result.getFieldErrors();
 
-        // Translate the FieldErrors to ErrorResponse
         List<ErrorResponse> errorResponseList = new ArrayList<>();
 
         for (FieldError fieldError : fieldErrors) {
@@ -37,7 +33,6 @@ public class ExceptionHandlerController {
             errorResponseList.add(errorResponse);
         }
 
-        // Create and return the ResponseEntity
         ResponseEntity<List<ErrorResponse>> responseEntity = new ResponseEntity<>(errorResponseList, HttpStatus.UNPROCESSABLE_ENTITY);
         return responseEntity;
     }

@@ -3,7 +3,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-// Originally from in Cognizant Module 2.3 - 02-we-record-service-validation-error-handling
 public class ErrorResponse {
     private String errorMsg;
     private int status;

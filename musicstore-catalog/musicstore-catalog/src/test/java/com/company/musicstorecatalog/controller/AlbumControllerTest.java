@@ -86,11 +86,11 @@ public class AlbumControllerTest {
                 .andExpect(content().json(outputAlbumJson));  // Assert
     }
     @Test
-    public void getOneArtistShouldReturn()throws Exception{
-        Album artist=new Album(117,"Halo", 1, LocalDate.of(2001,10,3),1,BigDecimal.valueOf(20.99));
-        String expectedJsonValue=mapper.writeValueAsString(artist);
+    public void getOneAlbumShouldReturn()throws Exception{
+        Album album=new Album(117,"Halo", 1, LocalDate.of(2001,10,3),1,BigDecimal.valueOf(20.99));
+        String expectedJsonValue=mapper.writeValueAsString(album);
 
-        doReturn(Optional.of(artist)).when(repo).findById(117);
+        doReturn(Optional.of(album)).when(repo).findById(117);
 
         ResultActions result = mockMvc.perform(
                         MockMvcRequestBuilders.get("/album/117"))

@@ -35,7 +35,7 @@ public class LabelRecommendationController {
 
         if (label.isPresent() == false) {
 
-            throw new IllegalArgumentException("invalid id");
+            throw new IllegalArgumentException("Wrong id");
 
         } else {
 
@@ -48,7 +48,7 @@ public class LabelRecommendationController {
         if (label.getId() == null) {
             label.setId(id);
         } else if (label.getId() != id) {
-            throw new IllegalArgumentException("Ids don't match.");
+            throw new IllegalArgumentException("Ids do not match.");
         }
         return repo.save(label);
 

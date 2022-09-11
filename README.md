@@ -3,12 +3,17 @@
 
 ## Table of Contents
 - [Overview](#overview)
+- [Goals](#goals)
 - [Technology Used](#technology-used)
 - [Demo Link](#demo-link)
 - [Questions](#questions)
 
 ## Overview
 In this challenge, I created and deployed microservices for an online music store
+
+## Goals
+- Create and deploy a Catalog microservice.
+- Create and deploy a Recommendations microservice.
 
 ## Technology Used
 - Java

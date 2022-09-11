@@ -20,6 +20,12 @@ In this challenge, I created and deployed microservices for an online music stor
 ## Demo Link
 Music Store Catalog Project:
 https://music-catalog-sk.herokuapp.com/
+https://music-catalog-sk.herokuapp.com/album
+https://music-catalog-sk.herokuapp.com/artist
+https://music-catalog-sk.herokuapp.com/label
+https://music-catalog-sk.herokuapp.com/track
+
+
 
 Music Store Recommendations Project:
 https://musicstore-recommendation-sk.herokuapp.com/
